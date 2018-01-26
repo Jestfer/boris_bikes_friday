@@ -12,6 +12,7 @@ class DockingStation
 
   def release_bike
     empty?
+    raise "Bike is broken it cannot be released" if @bikes[-1].working == false
     @bikes.pop
   end
 
@@ -28,4 +29,5 @@ class DockingStation
     def full?
       raise StandardError.new("Docking station full!") if @bikes.count == capacity
     end
+
 end

@@ -13,11 +13,17 @@ describe DockingStation do
   end
 
   it 'should allow user to set a capacity for the station' do
-    
     station = DockingStation.new(25)
     expect(station.capacity).to eq 25
   end
-  
+
+  it "shouldn't release broken bikes" do
+    bike = Bike.new
+    bike.is_broken
+    subject.dock(bike)
+    expect { subject.release_bike }.to raise_error "Bike is broken it cannot be released"
+
+  end
 
   describe '#dock' do
     it "raises an error when dock is full" do

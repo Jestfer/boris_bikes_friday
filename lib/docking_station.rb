@@ -1,21 +1,29 @@
 class DockingStation
-  attr_reader :bicycles
+  attr_reader :bikes, :capacity
 
-  def initialize
-    @bicycles = []
+  DEFAULT_CAPACITY = 20
+
+  def initialize(capacity=DEFAULT_CAPACITY)
+    @bikes = []
+    @capacity = capacity
   end
 
   def release_bike
-    if @bicycles.empty?
-      raise StandardError.new("Docking station empty!")
-      @bicycles.pop # release a bike
-    end
+    empty?
+    @bikes.pop
   end
 
   def dock(bike)
-    if @bicycles.count >= 20
-      raise StandardError.new("Docking station full!")
-      @bicycles << bike
-    end
+    full?
+    @bikes << bike
   end
+
+  private
+    def empty?
+      raise StandardError.new("Docking station empty!") if @bikes.empty?
+    end
+
+    def full?
+      raise StandardError.new("Docking station full!") if @bikes.count == capacity
+    end
 end

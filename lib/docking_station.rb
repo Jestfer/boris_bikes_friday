@@ -12,13 +12,20 @@ class DockingStation
 
   def release_bike
     empty?
-    raise "Bike is broken it cannot be released" if @bikes[-1].working == false
-    @bikes.pop
+
+    bikes.find do |bike|
+      if bike.working == true
+        bikes.delete(bike)
+      end
+    end
+
+    # raise "Bike is broken it cannot be released" if @bikes[-1].working == false
+    # @bikes.pop
   end
 
   def dock(bike)
     full?
-    @bikes << bike
+    bikes << bike
   end
 
   private

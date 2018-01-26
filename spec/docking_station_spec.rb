@@ -12,7 +12,12 @@ describe DockingStation do
     expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
   end
 
-  it 'should have 20 as default capacity'
+  it 'should allow user to set a capacity for the station' do
+    
+    station = DockingStation.new(25)
+    expect(station.capacity).to eq 25
+  end
+  
 
   describe '#dock' do
     it "raises an error when dock is full" do
